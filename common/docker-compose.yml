@@ -1,0 +1,25 @@
+version: '3.4'
+
+services: 
+    broker:
+        container_name: codejpg_rabbitmq_broker
+        image: rabbitmq:3-management
+        ports:
+            - 5682:5672
+            - 15682:15672
+        volumes:
+          - codejpg_broker_data:/var/lib/rabbitmq/
+        networks: 
+            - codejpg_network
+        restart: always
+        environment:
+            - RABBITMQ_DEFAULT_USER=guest
+            - RABBITMQ_DEFAULT_PASS=guest
+            - RABBITMQ_DEFAULT_VHOST=codejpg
+    
+networks:
+  codejpg_network:
+    driver: bridge
+
+volumes:
+  codejpg_broker_data: {}   
